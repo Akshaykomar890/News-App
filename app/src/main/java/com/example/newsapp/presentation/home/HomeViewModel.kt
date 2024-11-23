@@ -33,6 +33,15 @@ class HomeViewModel @Inject constructor(
         getNews("")
     }
 
+    fun onRefresh(){
+        viewModelScope.launch {
+            newsRepositoryImp.onRefresh()
+            getNews("")
+        }
+    }
+
+
+
      fun getNews(text:String?) {
          job?.cancel()
         job = viewModelScope.launch {

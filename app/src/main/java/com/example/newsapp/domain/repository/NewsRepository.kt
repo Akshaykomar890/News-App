@@ -16,6 +16,9 @@ interface NewsRepository {
     ):Flow<SetResults<NewsList>>
 
 
+    suspend fun onRefresh()
+
+
 
 
 

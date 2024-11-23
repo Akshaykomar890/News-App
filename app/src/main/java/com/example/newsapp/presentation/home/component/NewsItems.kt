@@ -27,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ImageNotSupported
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -83,6 +84,7 @@ fun NewsItems(item:NewsList,id:Int,navController: NavHostController) {
     }
 
 
+
     Row (
         modifier = Modifier
             .padding(2.dp)
@@ -90,13 +92,15 @@ fun NewsItems(item:NewsList,id:Int,navController: NavHostController) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(
-                color = MaterialTheme.colorScheme.surfaceDim
+                color = MaterialTheme.colorScheme.surfaceContainerHigh
             )
 
             .clickable {
-              navController.navigate(Details(
-                  id = item.id
-              ))
+                navController.navigate(
+                    Details(
+                        id = item.id
+                    )
+                )
             }
 
     ) {
@@ -141,7 +145,7 @@ fun NewsItems(item:NewsList,id:Int,navController: NavHostController) {
 
         }
 
-        
+
         Box(modifier = Modifier
             .padding(4.dp)
             .fillMaxSize()

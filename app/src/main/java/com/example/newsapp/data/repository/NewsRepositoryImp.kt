@@ -89,5 +89,9 @@ class NewsRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun onRefresh() {
+        return database.newsDao().clearNews()
+    }
+
 
 }

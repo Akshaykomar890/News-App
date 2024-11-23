@@ -21,6 +21,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -56,6 +57,7 @@ paddingValues: PaddingValues,
 
     Scaffold(
     bottomBar = {
+
         BottomNavigationBar(bottomNavController = bottomNavController,paddingValues)
     }
     ) {
@@ -80,9 +82,13 @@ paddingValues: PaddingValues,
 }
 @Composable
 fun BottomNavigationBar(bottomNavController: NavHostController,paddingValues: PaddingValues) {
+    Surface(
+        tonalElevation = 5.dp,
+        shadowElevation = 8.dp
+    ) {
     NavigationBar(
         modifier = Modifier.wrapContentHeight()
-    ){
+    ) {
         val items = listOf(
             BottomListItems(
                 title = "Home",
@@ -101,7 +107,7 @@ fun BottomNavigationBar(bottomNavController: NavHostController,paddingValues: Pa
         }
 
         Row(
-            modifier = Modifier.background(MaterialTheme.colorScheme.surfaceBright)
+            modifier = Modifier.background(MaterialTheme.colorScheme.surfaceContainer)
         ) {
             items.forEachIndexed { index, bottomListItems ->
                 NavigationBarItem(
@@ -109,15 +115,16 @@ fun BottomNavigationBar(bottomNavController: NavHostController,paddingValues: Pa
                     onClick = {
                         selected.intValue = index
 
-                        when(selected.intValue){
-                            0->{
-                                bottomNavController.navigate(Home){
+                        when (selected.intValue) {
+                            0 -> {
+                                bottomNavController.navigate(Home) {
                                     bottomNavController.popBackStack()
                                 }
 
                             }
-                            1->{
-                                bottomNavController.navigate(Bookmark){
+
+                            1 -> {
+                                bottomNavController.navigate(Bookmark) {
                                     bottomNavController.popBackStack()
                                 }
                             }
@@ -125,18 +132,19 @@ fun BottomNavigationBar(bottomNavController: NavHostController,paddingValues: Pa
 
                     },
                     icon = {
-                        Icon(imageVector = if (selected.intValue == index){
-                            bottomListItems.selectedIcon
-                        }else{
-                            bottomListItems.selectedIcon
-                        },
+                        Icon(
+                            imageVector = if (selected.intValue == index) {
+                                bottomListItems.selectedIcon
+                            } else {
+                                bottomListItems.unSelectedIcon
+                            },
                             contentDescription = null
                         )
                     },
                     label = {
-                        when(index){
-                            0-> Text(text = "Home")
-                            1-> Text(text = "Bookmark")
+                        when (index) {
+                            0 -> Text(text = "Home")
+                            1 -> Text(text = "Bookmark")
                         }
                     }
                 )
@@ -145,6 +153,7 @@ fun BottomNavigationBar(bottomNavController: NavHostController,paddingValues: Pa
 
         }
     }
+}
 
 }
 
