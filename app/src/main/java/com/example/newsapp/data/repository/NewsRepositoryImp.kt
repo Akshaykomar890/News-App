@@ -126,5 +126,9 @@ class NewsRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun deleteNewsBookmarkById(id: Int) {
+        bookmarkDatabase.bookmarkDao().deleteNewsBookmarkById(id)
+    }
+
 
 }

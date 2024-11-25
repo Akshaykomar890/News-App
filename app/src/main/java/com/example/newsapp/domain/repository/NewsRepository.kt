@@ -27,6 +27,9 @@ interface NewsRepository {
     suspend fun getNewBookmarkById(id:Int):Flow<SetResults<NewsBookmarkList>>
 
 
+   suspend fun deleteNewsBookmarkById(id: Int)
+
+
 
 
 

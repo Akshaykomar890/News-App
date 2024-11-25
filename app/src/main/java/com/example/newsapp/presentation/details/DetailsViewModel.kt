@@ -105,6 +105,12 @@ class DetailsViewModel @Inject constructor  (
         }
     }
 
+    fun deleteBookmark(id: Int){
+        viewModelScope.launch {
+            newsRepositoryImp.deleteNewsBookmarkById(id)
+        }
+    }
+
 
 
 

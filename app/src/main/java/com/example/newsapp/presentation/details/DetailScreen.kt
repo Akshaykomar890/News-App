@@ -24,6 +24,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.outlined.Bookmark
@@ -117,7 +118,7 @@ fun DetailScreen(
 
     Scaffold(
         topBar = {
-            if (navigation) {
+            if (navigation == true) {
                 TopAppBar(
                     modifier = Modifier.shadow(elevation = 5.dp),
                     title = {  },

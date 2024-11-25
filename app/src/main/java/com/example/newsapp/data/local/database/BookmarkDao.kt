@@ -22,4 +22,8 @@ interface BookmarkDao {
     suspend fun getNewsBookmarkById(
         id:Int
     ): NewsEntityListBookmark
+
+    @Query("DELETE FROM NewsEntityListBookmark WHERE id = :id")
+    suspend fun deleteNewsBookmarkById(id: Int)
+
 }
