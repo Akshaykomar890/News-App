@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmarks
@@ -49,39 +50,32 @@ import com.example.newsapp.presentation.home.HomeScreen
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BottomScreen(
-paddingValues: PaddingValues,
+paddingValue: PaddingValues,
+navHostController: NavHostController
 ) {
-    val bottomNavController = rememberNavController()
-
-
+    val navControllers   = rememberNavController()
 
     Scaffold(
-    bottomBar = {
-
-        BottomNavigationBar(bottomNavController = bottomNavController,paddingValues)
-    }
+        bottomBar = {
+            BottomNavigationBar(bottomNavController = navControllers)
+        }
     ) {
-        paddingValue->
-        NavHost(navController = bottomNavController , startDestination = Home) {
+        paddingValues->
+        NavHost(navController = navControllers, startDestination = Home) {
             composable<Home> {
-                HomeScreen(paddingValues = paddingValue,bottomNavController)
+                HomeScreen(navHostControllers = navHostController,paddingValues)
             }
             composable<Bookmark> {
-                BookmarkScreen()
+                val route = it.toRoute<Bookmark>()
+                BookmarkScreen(paddingValues,navHostController)
             }
-            
-            composable<Details> { 
-                val args = it.toRoute<Details>()
-                DetailScreen(id = args.id,bottomNavController)
-            }
-
 
         }
-
     }
+
 }
 @Composable
-fun BottomNavigationBar(bottomNavController: NavHostController,paddingValues: PaddingValues) {
+fun BottomNavigationBar(bottomNavController: NavHostController) {
     Surface(
         tonalElevation = 5.dp,
         shadowElevation = 8.dp

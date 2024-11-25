@@ -7,11 +7,9 @@ import com.example.newsapp.data.local.converter.NewsConverters
 import com.example.newsapp.data.local.model.NewsEntityList
 import com.example.newsapp.data.local.model.NewsEntityListBookmark
 
-@Database(entities = [NewsEntityList::class], version = 1, exportSchema = false)
+
+@Database(entities = [NewsEntityListBookmark::class], version = 1, exportSchema = false)
 @TypeConverters(NewsConverters::class)
-abstract class NewsDatabase:RoomDatabase() {
-
-    abstract fun newsDao():NewsDao
-
-
+abstract class BookmarkDatabase :RoomDatabase(){
+    abstract fun bookmarkDao():BookmarkDao
 }

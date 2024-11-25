@@ -2,10 +2,16 @@ package com.example.newsapp.data.mapper
 
 import com.example.newsapp.data.local.model.NewsEntity
 import com.example.newsapp.data.local.model.NewsEntityList
+import com.example.newsapp.data.local.model.NewsEntityListBookmark
 import com.example.newsapp.data.remote.response.NewsDto
 import com.example.newsapp.data.remote.response.NewsListDto
 import com.example.newsapp.domain.model.News
+import com.example.newsapp.domain.model.NewsBookmarkList
 import com.example.newsapp.domain.model.NewsList
+
+
+
+
 
 
 
@@ -59,5 +65,109 @@ fun NewsListDto.toNewsList():NewsEntityList{
 
     )
 }
+
+
+fun NewsList.toNewsEntity():NewsEntityList{
+    return NewsEntityList(
+        author = author,
+        category = category,
+        image = image,
+        language = language,
+        publish_date = publish_date,
+        sentiment = sentiment,
+        source_country = source_country,
+        summary = summary,
+        text = text,
+        title = title,
+        url = url,
+        video = video,
+        id = id,
+        authors = authors
+    )
+}
+
+
+
+fun NewsBookmarkList.toBookmarkNewsEntityList():NewsEntityListBookmark{
+    return NewsEntityListBookmark(
+        author = author,
+        category = category,
+        image = image,
+        language = language,
+        publish_date = publish_date,
+        sentiment = sentiment,
+        source_country = source_country,
+        summary = summary,
+        text = text,
+        title = title,
+        url = url,
+        video = video,
+        id = id,
+        authors = authors
+    )
+}
+
+
+fun NewsEntityListBookmark.toNewsBookmarkList():NewsBookmarkList{
+    return NewsBookmarkList(
+        author = author,
+        category = category,
+        image = image,
+        language = language,
+        publish_date = publish_date,
+        sentiment = sentiment,
+        source_country = source_country,
+        summary = summary,
+        text = text,
+        title = title,
+        url = url,
+        video = video,
+        id = id,
+        authors = authors
+    )
+}
+
+
+fun NewsList.toNewsBookmarkList():NewsBookmarkList{
+    return NewsBookmarkList(
+        author = author,
+        category = category,
+        image = image,
+        language = language,
+        publish_date = publish_date,
+        sentiment = sentiment,
+        source_country = source_country,
+        summary = summary,
+        text = text,
+        title = title,
+        url = url,
+        video = video,
+        id = id,
+        authors = authors
+    )
+}
+
+
+fun NewsBookmarkList.toNewsList():NewsList{
+    return NewsList(
+        author = author,
+        category = category,
+        image = image,
+        language = language,
+        publish_date = publish_date,
+        sentiment = sentiment,
+        source_country = source_country,
+        summary = summary,
+        text = text,
+        title = title,
+        url = url,
+        video = video,
+        id = id,
+        authors = authors
+    )
+}
+
+
+
 
 

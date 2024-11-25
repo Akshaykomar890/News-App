@@ -1,11 +1,13 @@
 package com.example.newsapp.data.repository
 
 import android.util.Log
+import com.example.newsapp.data.local.database.BookmarkDatabase
 import com.example.newsapp.data.local.database.NewsDatabase
-import com.example.newsapp.data.local.model.NewsEntityList
-import com.example.newsapp.data.mapper.toNewsEntity
+import com.example.newsapp.data.mapper.toBookmarkNewsEntityList
+import com.example.newsapp.data.mapper.toNewsBookmarkList
 import com.example.newsapp.data.mapper.toNewsList
 import com.example.newsapp.data.remote.web.NewsApi
+import com.example.newsapp.domain.model.NewsBookmarkList
 import com.example.newsapp.domain.model.NewsList
 import com.example.newsapp.domain.repository.NewsRepository
 import com.example.newsapp.utils.ErrorType
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 class NewsRepositoryImp @Inject constructor(
     private val newsApi: NewsApi,
-    private val database: NewsDatabase
+    private val database: NewsDatabase,
+    private val bookmarkDatabase:BookmarkDatabase
 ):NewsRepository {
     override suspend fun getNewsList(text: String?): Flow<SetResults<List<NewsList>>> {
         return flow {
@@ -91,6 +94,36 @@ class NewsRepositoryImp @Inject constructor(
 
     override suspend fun onRefresh() {
         return database.newsDao().clearNews()
+    }
+
+    override suspend fun addBookmark(news: NewsBookmarkList) {
+        bookmarkDatabase.bookmarkDao().insertBookmark(news = news.toBookmarkNewsEntityList())
+
+    }
+
+    override suspend fun getBookmarkList(): Flow<SetResults<List<NewsBookmarkList>>> {
+        return flow {
+            val getData = bookmarkDatabase.bookmarkDao().getNewsListBookmark()
+
+            emit(SetResults.Success(
+                data = getData.map {
+                    it.toNewsBookmarkList()
+                }
+            ))
+        }
+    }
+
+    override suspend fun getNewBookmarkById(id: Int): Flow<SetResults<NewsBookmarkList>> {
+        return flow {
+            val data = bookmarkDatabase.bookmarkDao().getNewsBookmarkById(id)
+
+            emit(SetResults.Success(
+                data = data.toNewsBookmarkList()
+            ))
+
+
+
+        }
     }
 
 

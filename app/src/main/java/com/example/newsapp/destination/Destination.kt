@@ -15,4 +15,6 @@ object Bottom
 @Serializable
 data class Details(
     val id:Int,
+    val navigation:Boolean,
+    val bookmark:Boolean
 )

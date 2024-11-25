@@ -5,6 +5,8 @@ import androidx.room.Query
 import androidx.room.Upsert
 import com.example.newsapp.data.local.model.NewsEntity
 import com.example.newsapp.data.local.model.NewsEntityList
+import com.example.newsapp.data.local.model.NewsEntityListBookmark
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -20,7 +22,7 @@ interface NewsDao {
     @Query("Select * from NewsEntityList")
     suspend fun getNewsList():List<NewsEntityList>
 
-    @Query("DELETE FROM NewsEntityList") // Replace 'news_table' with your actual table name
+    @Query("DELETE FROM NewsEntityList")
     suspend fun clearNews()
 
 
@@ -28,8 +30,6 @@ interface NewsDao {
     suspend fun insertNews(
         news: List<NewsEntityList>
     )
-
-
 
 
 }

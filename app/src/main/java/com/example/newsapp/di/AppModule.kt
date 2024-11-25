@@ -3,6 +3,7 @@ package com.example.newsapp.di
 import android.app.Application
 import androidx.room.Room
 import com.example.newsapp.data.local.converter.NewsConverters
+import com.example.newsapp.data.local.database.BookmarkDatabase
 import com.example.newsapp.data.local.database.NewsDatabase
 import com.example.newsapp.data.remote.web.NewsApi
 import com.example.newsapp.utils.BASE_URL
@@ -46,7 +47,18 @@ object AppModule {
     fun provideDatabase(app:Application):NewsDatabase{
         return Room.databaseBuilder(
             context = app,
-            NewsDatabase::class.java,"News-db"
+            NewsDatabase::class.java,"News-db",
+        ).addTypeConverter(NewsConverters())
+            .build()
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideBookmarkDatabase(app:Application):BookmarkDatabase{
+        return Room.databaseBuilder(
+            context = app,
+            BookmarkDatabase::class.java,"Bookmark-db",
         ).addTypeConverter(NewsConverters())
             .build()
     }

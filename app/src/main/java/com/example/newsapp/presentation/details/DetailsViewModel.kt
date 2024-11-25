@@ -1,9 +1,17 @@
 package com.example.newsapp.presentation.details
 
 import android.net.NetworkInfo.DetailedState
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.data.local.model.NewsEntityList
+import com.example.newsapp.data.mapper.toBookmarkNewsEntityList
+import com.example.newsapp.data.mapper.toNewsList
 import com.example.newsapp.data.repository.NewsRepositoryImp
+import com.example.newsapp.domain.model.News
+import com.example.newsapp.domain.model.NewsBookmarkList
+import com.example.newsapp.domain.model.NewsList
+import com.example.newsapp.presentation.bookmark.BookmarkState
 import com.example.newsapp.utils.ErrorType
 import com.example.newsapp.utils.SetResults
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +33,10 @@ class DetailsViewModel @Inject constructor  (
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _newsIdState.asStateFlow()
+
+    private val _newsBookmarkState = MutableStateFlow(BookmarkState())
+
+    val newsBookmarkState = _newsBookmarkState.asStateFlow()
 
 
     fun getNewsId(id:Int) {
@@ -63,6 +75,38 @@ class DetailsViewModel @Inject constructor  (
 
         }
     }
+
+
+    fun addToBookmark(news:NewsBookmarkList){
+        viewModelScope.launch {
+            newsRepositoryImp.addBookmark(news)
+        }
+    }
+    fun getBookmarkById(id:Int){
+        viewModelScope.launch {
+            newsRepositoryImp.getNewBookmarkById(id).collectLatest {
+                    collect->
+                when(collect){
+                    is SetResults.Error -> {
+                        Log.d("BookmarkData","BookmarkDataNotFound")
+                    }
+                    is SetResults.Success ->{
+                        collect.data?.let {
+                                data->
+                            _newsIdState.update {
+                                it.copy(
+                                    newsId = data.toNewsList()
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
 
 }
