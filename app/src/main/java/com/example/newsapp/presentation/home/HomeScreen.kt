@@ -48,6 +48,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -161,6 +162,9 @@ paddingValues: PaddingValues
                     .fillMaxSize()
             ){
 
+
+
+
                 if (isLoading){
                     LazyColumn(Modifier.fillMaxSize()) {
                         items(newsListState.newsList.size){
@@ -169,7 +173,6 @@ paddingValues: PaddingValues
 
                     }
                 }else{
-
                     PullToRefreshBox(
                         state = pullToRefreshState ,
                         isRefreshing = isRefreshing,

@@ -7,6 +7,7 @@ import com.example.newsapp.utils.ErrorType
 import com.example.newsapp.utils.SetResults
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -39,6 +40,8 @@ class HomeViewModel @Inject constructor(
             getNews("")
         }
     }
+
+
 
 
 
