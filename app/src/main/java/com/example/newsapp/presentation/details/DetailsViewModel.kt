@@ -11,6 +11,7 @@ import com.example.newsapp.data.repository.NewsRepositoryImp
 import com.example.newsapp.domain.model.News
 import com.example.newsapp.domain.model.NewsBookmarkList
 import com.example.newsapp.domain.model.NewsList
+import com.example.newsapp.domain.repository.NewsRepository
 import com.example.newsapp.presentation.bookmark.BookmarkState
 import com.example.newsapp.utils.ErrorType
 import com.example.newsapp.utils.SetResults
@@ -25,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor  (
-    private val newsRepositoryImp: NewsRepositoryImp
+    private val newsRepositoryImp: NewsRepository
 ):ViewModel()
 {
     private val _newsIdState = MutableStateFlow(DetailsState())

@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookmarkViewModel @Inject constructor (
-   private val newsRepository: NewsRepositoryImp
+   private val newsRepository: NewsRepository
 ):ViewModel(){
 
     private val _newsBookmarkState = MutableStateFlow(BookmarkState())

@@ -6,6 +6,8 @@ import com.example.newsapp.data.local.converter.NewsConverters
 import com.example.newsapp.data.local.database.BookmarkDatabase
 import com.example.newsapp.data.local.database.NewsDatabase
 import com.example.newsapp.data.remote.web.NewsApi
+import com.example.newsapp.data.repository.NewsRepositoryImp
+import com.example.newsapp.domain.repository.NewsRepository
 import com.example.newsapp.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -61,6 +63,16 @@ object AppModule {
             BookmarkDatabase::class.java,"Bookmark-db",
         ).addTypeConverter(NewsConverters())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideNewsRepoImp(app:Application,client: OkHttpClient):NewsRepository{
+        return NewsRepositoryImp(
+            bookmarkDatabase = provideBookmarkDatabase(app),
+            database = provideDatabase(app),
+            newsApi = provideRetrofit(client)
+        )
     }
 
     
